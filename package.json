@@ -1,7 +1,7 @@
 {
-  "name": "nodejs",
-  "version": "1.0.0",
-  "description": "",
+  "name": "kafka-to-front-ws",
+  "version": "0.0.1",
+  "description": "service is written in node JS and serves to receive information from a kafka topic and convert it to a web socket",
   "main": "index.js",
   "type": "module",
   "scripts": {
