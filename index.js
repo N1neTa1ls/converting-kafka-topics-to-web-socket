@@ -7,7 +7,7 @@ import { Kafka } from 'kafkajs';
 
 const kafka = new Kafka({
     clientId: 'kafkaToFrontWS',
-    brokers: ['172.16.60.65:9094'],
+    brokers: ['kafkaIP:kafkaPort'],
 })
 const consumer = kafka.consumer({ groupId: 'frontendGroup' })
 const app = express();
@@ -30,7 +30,7 @@ io.on('connection', (socket) => {
 });
 
 consumer.connect().then(() => {
-    consumer.subscribe({topic: 'device-control.commandresultmessage.1', fromBeginning: false}).then(() => {
+    consumer.subscribe({topics: ['topicKafka1', 'topicKafka2'], fromBeginning: false}).then(() => {
         consumer.run({
             eachMessage: async ({topic, partition, message}) => {
                 io.emit('kafka', {
