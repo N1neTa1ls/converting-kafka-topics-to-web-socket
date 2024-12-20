@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="En">
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>Kafka to WS</title>
+    </head>
+    <body>
+        <h1> Live server is running </h1>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            // const socket = io();
+            // socket.on('audit.audit', arg => console.log(arg));
+
+            const socket = io('', {
+                // reconnectionDelayMax: 10000,
+                auth: {
+                    token: "12345"
+                },
+                query: {
+                    topics: 'audit.audit'
+                }
+            });
+            socket.on('audit.audit', arg => console.log('audit.audit',arg));
+
+            const socketOne = io('', {
+                // reconnectionDelayMax: 10000,
+                auth: {
+                    token: "123"
+                },
+                query: {
+                    topics: ['device-control.commandresultmessage.1','device-control.emscommand.1']
+                }
+            });
+            socketOne.on('device-control.commandresultmessage.1', arg => console.log('device-control.commandresultmessage.1',arg));
+        </script>
+    </body>
+</html>
